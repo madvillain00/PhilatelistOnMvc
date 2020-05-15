@@ -22,7 +22,7 @@ namespace PhilatelistOnMVC.Models
         [DisplayName("Контактные координаты")]
         public string ContactCoordinates { get; set; }
 
-        [DisplayName("Наличие редких марок")]
+        [DisplayName("Наличие особенных марок")]
         public string Availability { get; set; }
 
         

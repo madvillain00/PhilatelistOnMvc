@@ -30,5 +30,6 @@ namespace MyProject.Models
 
         [DisplayName("Особенности")]
         public string Features { get; set; }
+        
     }
 }
