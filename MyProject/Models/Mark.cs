@@ -20,13 +20,13 @@ namespace MyProject.Models
         public string Country { get; set; }
 
         [DisplayName("Стоимость")]
-        public int NominalValue { get; set; }
+        public string NominalValue { get; set; }
 
         [DisplayName("Год")]
-        public int Year { get; set; }
+        public string Year { get; set; }
 
         [DisplayName("Количество")]
-        public int Count { get; set; }
+        public string Count { get; set; }
 
         [DisplayName("Особенности")]
         public string Features { get; set; }

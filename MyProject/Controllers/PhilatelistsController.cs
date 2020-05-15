@@ -11,7 +11,7 @@ using PhilatelistOnMVC.Models;
 
 namespace PhilatelistOnMVC.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "admin")]
     
     public class PhilatelistsController : Controller
     {

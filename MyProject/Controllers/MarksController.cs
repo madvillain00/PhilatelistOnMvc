@@ -22,10 +22,7 @@ namespace MyProject.Controllers
         }
 
         // GET: Marks
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Mark.ToListAsync());
-        }
+        
 
         // GET: Marks/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -151,5 +148,20 @@ namespace MyProject.Controllers
         {
             return _context.Mark.Any(e => e.Id == id);
         }
+        public async Task<IActionResult> Index(string searchString)
+        {
+            var Marks = from m in _context.Mark
+                           select m;
+
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                Marks = Marks.Where(s => s.Name.Contains(searchString) || s.Country.Contains(searchString) || s.NominalValue.Contains(searchString) || s.Year.Contains(searchString)
+                                || s.Count.Contains(searchString) || s.Features.Contains(searchString));
+            }
+
+            return View(await Marks.ToListAsync());
+        }
     }
+    
 }
