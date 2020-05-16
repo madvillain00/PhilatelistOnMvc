@@ -7,12 +7,12 @@
 <h1>Справочник Филателиста</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create"><button type="button" class="btn btn-outline-primary btn-sm">Добавить марку</button></a>
 </p>
 <form asp-controller="Marks" asp-action="Index">
     <p>
         Title: <input type="text" name="SearchString">
-        <input type="submit" value="Filter" />
+        <button type="submit" class="btn btn-outline-primary btn-sm">Фильтр</button>
     </p>
 </form>
 <table class="table">
@@ -61,9 +61,9 @@
                 @Html.DisplayFor(modelItem => item.Features)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-success btn-sm">Редактировать</button></a>
+                <a asp-action="Details" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-info btn-sm">Детали</button></a> 
+                <a asp-action="Delete" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-danger btn-sm">Удалить</button></a>
             </td>
         </tr>
 }
