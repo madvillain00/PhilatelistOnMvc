@@ -19,22 +19,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.ActionLink(@Html.DisplayNameFor(model => model.Name), "Index", new { sortOrder = ViewBag.NameSortParm })
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Country)
+                @Html.ActionLink(@Html.DisplayNameFor(model => model.Country), "Index", new { sortOrder = ViewBag.CountrySortParm })
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NominalValue)
+                @Html.ActionLink(@Html.DisplayNameFor(model => model.NominalValue), "Index", new { sortOrder = ViewBag.NominalValueSortParm })
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Year)
+                @Html.ActionLink(@Html.DisplayNameFor(model => model.Year), "Index", new { sortOrder = ViewBag.YearSortParm })
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Count)
+                @Html.ActionLink(@Html.DisplayNameFor(model => model.Count), "Index", new { sortOrder = ViewBag.CountSortParm })
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Features)
+                @Html.ActionLink(@Html.DisplayNameFor(model => model.Features), "Index", new { sortOrder = ViewBag.FeaturesSortParm })
             </th>
             <th></th>
         </tr>

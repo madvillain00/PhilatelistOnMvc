@@ -41,6 +41,10 @@ namespace MyProject.Controllers
 
             return View(mark);
         }
+        //------------------------------------------------------
+        
+
+        //-------------------------------------------------
 
         // GET: Marks/Create
         public IActionResult Create()
@@ -148,19 +152,66 @@ namespace MyProject.Controllers
         {
             return _context.Mark.Any(e => e.Id == id);
         }
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString, string sortOrder)
         {
-            var Marks = from m in _context.Mark
-                           select m;
+            var marks = from m in _context.Mark
+                        select m;
+
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
+            ViewBag.CountrySortParm = sortOrder == "Country" ? "Country_desc" : "Country";
+            ViewBag.NominalValueSortParm = sortOrder == "NominalValue" ? "NominalValue_desc" : "NominalValue";
+            ViewBag.YearSortParm = sortOrder == "Year" ? "Year_desc" : "Year";
+            ViewBag.CountSortParm = sortOrder == "Count" ? "Count_desc" : "Count";
+            ViewBag.FeaturesSortParm = sortOrder == "Features" ? "Features_desc" : "Features";
+
+            switch (sortOrder)
+            {
+                case "Name_desc":
+                    marks = marks.OrderByDescending(s => s.Name);
+                    break;
+                case "Country":
+                    marks = marks.OrderBy(s => s.Country);
+                    break;
+                case "Country_desc":
+                    marks = marks.OrderByDescending(s => s.Country);
+                    break;
+                case "NominalValue":
+                    marks = marks.OrderBy(s => s.NominalValue);
+                    break;
+                case "NominalValue_desc":
+                    marks = marks.OrderByDescending(s => s.NominalValue);
+                    break;
+                case "Year":
+                    marks = marks.OrderBy(s => s.Year);
+                    break;
+                case "Year_desc":
+                    marks = marks.OrderByDescending(s => s.Year);
+                    break;
+                case "Count":
+                    marks = marks.OrderBy(s => s.Count);
+                    break;
+                case "Count_desc":
+                    marks = marks.OrderByDescending(s => s.Count);
+                    break;
+                case "Features":
+                    marks = marks.OrderBy(s => s.Features);
+                    break;
+                case "Features_desc":
+                    marks = marks.OrderByDescending(s => s.Features);
+                    break;
+                default:
+                    marks = marks.OrderBy(s => s.Name);
+                    break;
+            }
 
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                Marks = Marks.Where(s => s.Name.Contains(searchString) || s.Country.Contains(searchString) || s.NominalValue.Contains(searchString) || s.Year.Contains(searchString)
+                marks = marks.Where(s => s.Name.Contains(searchString) || s.Country.Contains(searchString) || s.NominalValue.Contains(searchString) || s.Year.Contains(searchString)
                                 || s.Count.Contains(searchString) || s.Features.Contains(searchString));
             }
 
-            return View(await Marks.ToListAsync());
+            return View(await marks.ToListAsync());
         }
     }
     
