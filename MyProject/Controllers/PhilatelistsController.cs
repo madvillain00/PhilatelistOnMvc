@@ -11,7 +11,7 @@ using PhilatelistOnMVC.Models;
 
 namespace PhilatelistOnMVC.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize]
     
     public class PhilatelistsController : Controller
     {
@@ -23,10 +23,7 @@ namespace PhilatelistOnMVC.Controllers
         }
 
         // GET: Philatelists
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Philatelist.ToListAsync());
-        }
+        
 
         // GET: Philatelists/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -151,6 +148,56 @@ namespace PhilatelistOnMVC.Controllers
         private bool PhilatelistExists(int id)
         {
             return _context.Philatelist.Any(e => e.Id == id);
+        }
+
+
+        public async Task<IActionResult> Index(string searchString, string sortOrder)
+        {
+            var philatelists = from z in _context.Philatelist
+                        select z;
+
+            ViewBag.Name1SortParm = String.IsNullOrEmpty(sortOrder) ? "Name1_desc" : "";
+            ViewBag.Country1SortParm = sortOrder == "Country1" ? "Country1_desc" : "Country1";
+            ViewBag.ContactCoordinatesSortParm = sortOrder == "ContactCoordinates" ? "ContactCoordinates_desc" : "ContactCoordinates";
+            ViewBag.AvailabilitySortParm = sortOrder == "Availability" ? "Availability_desc" : "Availability";
+         
+
+            switch (sortOrder)
+            {
+                case "Name1_desc":
+                    philatelists = philatelists.OrderByDescending(s => s.Name);
+                    break;
+                case "Country1":
+                    philatelists = philatelists.OrderBy(s => s.Country);
+                    break;
+                case "Country1_desc":
+                    philatelists = philatelists.OrderByDescending(s => s.Country);
+                    break;
+                case "ContactCoordinates":
+                    philatelists = philatelists.OrderBy(s => s.ContactCoordinates);
+                    break;
+                case "ContactCoordinates_desc":
+                    philatelists = philatelists.OrderByDescending(s => s.ContactCoordinates);
+                    break;
+                case "Availability":
+                    philatelists = philatelists.OrderBy(s => s.Availability);
+                    break;
+                case "Availability_desc":
+                    philatelists = philatelists.OrderByDescending(s => s.Availability);
+                    break;
+                default:
+                    philatelists = philatelists.OrderBy(s => s.Name);
+                    break;
+            }
+
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                philatelists = philatelists.Where(s => s.Name.Contains(searchString) || s.Country.Contains(searchString) || s.ContactCoordinates.Contains(searchString) || s.Availability.Contains(searchString));
+                                
+            }
+
+            return View(await philatelists.ToListAsync());
         }
     }
 }
