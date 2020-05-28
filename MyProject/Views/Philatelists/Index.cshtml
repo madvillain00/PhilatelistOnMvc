@@ -6,9 +6,16 @@
 
 <h1>Список филателистов</h1>
 
-<p>
-    <a asp-action="Create"><button type="button" class="btn btn-outline-primary btn-sm">Добавить филателиста</button></a>
-</p>
+
+@if (User.Identity.IsAuthenticated)
+{
+    if (User.IsInRole("Admin"))
+    {
+        <p>
+            <a asp-action="Create"><button type="button" class="btn btn-outline-primary btn-sm">Добавить филателиста</button></a>
+        </p>
+    }
+}
 <form asp-controller="Philatelists" asp-action="Index">
     <p>
         <input type="text" name="SearchString">
@@ -34,7 +41,8 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -48,12 +56,22 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Availability)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-success btn-sm">Редактировать</button></a>
-                <a asp-action="Details" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-info btn-sm">Детали</button></a>
-                <a asp-action="Delete" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-danger btn-sm">Удалить</button></a>
-            </td>
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("Admin"))
+                {
+        <td>
+            <a asp-action="Edit" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-success btn-sm">Редактировать</button></a>
+            <a asp-action="Details" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-info btn-sm">Детали</button></a>
+            <a asp-action="Delete" asp-route-id="@item.Id"><button type="button" class="btn btn-outline-danger btn-sm">Удалить</button></a>
+        </td>
+                }
+            }
         </tr>
-}
+        }
     </tbody>
 </table>
+
+
+
+
