@@ -26,8 +26,15 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Приватность</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Marks" asp-action="Index">Моя коллекция</a>
-                        </li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                if (!User.IsInRole("Admin"))
+                                {
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Marks" asp-action="Index">Моя коллекция</a>
+                                }
+                            }
+                                </li>
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Philatelists" asp-action="Index">Филателисты</a>
                         </li>
