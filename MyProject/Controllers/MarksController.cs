@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 using MyProject.Data;
 using MyProject.Models;
+using System.Security.Claims;
 
 namespace MyProject.Controllers
 {
@@ -15,9 +17,10 @@ namespace MyProject.Controllers
     public class MarksController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public MarksController(ApplicationDbContext context)
+        private readonly IHttpContextAccessor httpContextAccessor;
+        public MarksController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
         {
+            this.httpContextAccessor = httpContextAccessor;
             _context = context;
         }
 
@@ -59,6 +62,7 @@ namespace MyProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Country,NominalValue,Year,Count,Features")] Mark mark)
         {
+            mark.UserId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             if (ModelState.IsValid)
             {
                 _context.Add(mark);
@@ -154,7 +158,11 @@ namespace MyProject.Controllers
         }
         public async Task<IActionResult> Index(string searchString, string sortOrder)
         {
+            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+
             var marks = from m in _context.Mark
+                        where m.UserId == userId
                         select m;
 
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";

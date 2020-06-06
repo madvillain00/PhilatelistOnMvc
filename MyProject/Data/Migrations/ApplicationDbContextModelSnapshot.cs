@@ -150,6 +150,9 @@ namespace MyProject.Data.Migrations
                     b.Property<string>("NominalValue")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Year")
                         .HasColumnType("nvarchar(max)");
 
