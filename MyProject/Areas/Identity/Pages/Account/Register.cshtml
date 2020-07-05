@@ -1,7 +1,7 @@
 ﻿@page
 @model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Регистрация";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -9,59 +9,59 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Create a new account.</h4>
+            <h4>Создать новый аккаунт</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Input.Name"></label>
+                <label asp-for="Input.Name">Имя</label>
                 <input asp-for="Input.Name" class="form-control" />
                 <span asp-validation-for="Input.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.Country"></label>
+                <label asp-for="Input.Country">Страна</label>
                 <input asp-for="Input.Country" class="form-control" />
                 <span asp-validation-for="Input.Country" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.ContactDetails"></label>
+                <label asp-for="Input.ContactDetails">Контактные координаты</label>
                 <input asp-for="Input.ContactDetails" class="form-control" />
                 <span asp-validation-for="Input.ContactDetails" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.Availability"></label>
+                <label asp-for="Input.Availability">Наличие особенных марок</label>
                 <input asp-for="Input.Availability" class="form-control" />
                 <span asp-validation-for="Input.Availability" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.Email"></label>
+                <label asp-for="Input.Email">Почта</label>
                 <input asp-for="Input.Email" class="form-control" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.Password"></label>
+                <label asp-for="Input.Password">Пароль</label>
                 <input asp-for="Input.Password" class="form-control" />
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.ConfirmPassword"></label>
+                <label asp-for="Input.ConfirmPassword">Подтверждение пароля</label>
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary">Регистрация</button>
         </form>
     </div>
     <div class="col-md-6 col-md-offset-2">
         <section>
-            <h4>Use another service to register.</h4>
+            <h4>Используйте другой сервис для регистрации</h4>
             <hr />
             @{
                 if ((Model.ExternalLogins?.Count ?? 0) == 0)
                 {
                     <div>
-                        <p>
-                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                            for details on setting up this ASP.NET application to support logging in via external services.
-                        </p>
+                                    <p>
+                                        Внешние службы проверки подлинности не настроены. Смотрите <a href="https://go.microsoft.com/fwlink/?LinkID=532715">эту статью</a>
+                                        для получения подробной информации о настройке этого приложения ASP.NET для поддержки входа через внешние службы.
+                                    </p>
                     </div>
                 }
                 else
